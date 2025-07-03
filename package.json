@@ -1,7 +1,7 @@
 {
   "name": "wayagetsystemdata",
   "version": "1.0.0",
-  "description": "ざっくり言えば、HTTPでGETを受信したら、ほしい情報だけを返却するシステム。   APIにほしい情報を載せていって、CSVなのか？JSONなのか？を指定して、ほしい情報を、ほしい形で返却させます。",
+  "description": "A Fastify-based API server that provides system information using `fastfetch` and `systeminformation`.",
   "main": "index.js",
   "scripts": {
     "build": "tsc",
