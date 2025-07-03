@@ -1,0 +1,31 @@
+{
+  "name": "wayagetsystemdata",
+  "version": "1.0.0",
+  "description": "ざっくり言えば、HTTPでGETを受信したら、ほしい情報だけを返却するシステム。   APIにほしい情報を載せていって、CSVなのか？JSONなのか？を指定して、ほしい情報を、ほしい形で返却させます。",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsc && node dist/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kotatsu-RTM/WayaGetSystemData.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Kotatsu-RTM/WayaGetSystemData/issues"
+  },
+  "homepage": "https://github.com/Kotatsu-RTM/WayaGetSystemData#readme",
+  "dependencies": {
+    "fastify": "^5.4.0",
+    "systeminformation": "^5.27.1"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.10",
+    "typescript": "^5.8.3"
+  }
+}
