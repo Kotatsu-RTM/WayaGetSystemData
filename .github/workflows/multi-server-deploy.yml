@@ -1,0 +1,68 @@
+name: Multi-Server Deploy
+
+on:
+  push:
+    branches:
+      - master # デプロイをトリガーするブランチを master に変更
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        # デプロイ対象のサーバーリストを定義
+        # 各サーバーのSSH接続情報をGitHub Secretsで管理
+        server:
+          - name: "Server 1"
+            host: ${{ secrets.SERVER1_SSH_HOST }}
+            username: ${{ secrets.SERVER1_SSH_USERNAME }}
+            key: ${{ secrets.SERVER1_SSH_PRIVATE_KEY }}
+          - name: "Server 2"
+            host: ${{ secrets.SERVER2_SSH_HOST }}
+            username: ${{ secrets.SERVER2_SSH_USERNAME }}
+            key: ${{ secrets.SERVER2_SSH_PRIVATE_KEY }}
+          # 必要に応じてサーバーを追加
+          # - name: "Server 3"
+          #   host: ${{ secrets.SERVER3_SSH_HOST }}
+          #   username: ${{ secrets.SERVER3_SSH_USERNAME }}
+          #   key: ${{ secrets.SERVER3_SSH_PRIVATE_KEY }}
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '24' # Node.js バージョンを 24 に変更
+
+    - name: Install dependencies and build
+      run: |
+        npm install
+        npm run build
+
+    - name: Deploy to ${{ matrix.server.name }} via SSH
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ matrix.server.host }}
+        username: ${{ matrix.server.username }}
+        key: ${{ matrix.server.key }}
+        script: |
+          echo "Starting deployment on ${{ matrix.server.name }}..."
+          # デプロイ先のディレクトリに移動
+          cd /path/to/your/WayaGetSystemData # ★★★ ここをサーバー上のWayaGetSystemDataの絶対パスに変更 ★★★
+
+          # Gitリポジトリを最新の状態に更新
+          git pull origin master # ★★★ ブランチ名を master に変更 ★★★
+
+          # アプリケーションの停止
+          ./scripts/stop.sh
+
+          # 依存関係の再インストールとビルド (必要であればコメントアウトを外す)
+          # npm install
+          # npm run build
+
+          # アプリケーションの起動
+          ./scripts/start.sh
+
+          echo "Deployment to ${{ matrix.server.name }} completed!"
