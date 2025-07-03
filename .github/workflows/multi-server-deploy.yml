@@ -65,4 +65,8 @@ jobs:
           # アプリケーションの起動
           ./scripts/start.sh
 
+<<<<<<< HEAD
           echo "Deployment to ${{ matrix.server.name }} completed!"
+=======
+          echo "Deployment to ${{ matrix.server.name }} completed!"
+>>>>>>> 472342fbaff299fba4705ee30754b74705a61f37
