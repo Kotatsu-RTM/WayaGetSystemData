@@ -160,7 +160,9 @@ server.get('/api/systeminfo', async (request, reply) => {
   }
 });
 
-server.listen({ port: 3000, host: '0.0.0.0' }, (err, address) => {
+const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
+
+server.listen({ port: PORT, host: '0.0.0.0' }, (err, address) => {
   if (err) {
     console.error(err);
     process.exit(1);

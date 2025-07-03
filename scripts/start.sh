@@ -14,4 +14,4 @@ echo "Starting WayaGetSystemData..."
 nohup node ../dist/index.js > /dev/null 2>&1 &
 echo $! > "$PID_FILE"
 echo "WayaGetSystemData started with PID $!."
-echo "Access it via: curl http://localhost:3000/api/systeminfo"
+echo "Access it via: curl http://localhost:${PORT:-3000}/api/systeminfo"
