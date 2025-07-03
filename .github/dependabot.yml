@@ -1,0 +1,17 @@
+version: 2
+updates:
+  - package-ecosystem: "npm" # npm (Node.js) の依存関係を監視
+    directory: "/" # WayaGetSystemData プロジェクトのルートディレクトリを指定
+    schedule:
+      interval: "daily" # 毎日依存関係の更新をチェック
+    # Pull Request のターゲットブランチを指定 (例: main, master)
+    target-branch: "master"
+    # Pull Request にラベルを追加 (オプション)
+    labels:
+      - "dependencies"
+      - "npm"
+    # Pull Request のレビュアーを指定 (オプション)
+    reviewers:
+      - waya0125
+    # Pull Request を自動マージする条件 (オプション、GitHub の設定も必要)
+    # automerge: true
