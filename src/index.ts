@@ -150,14 +150,23 @@ server.get('/api/systeminfo', async (request, reply) => {
       }
       reply.header('Content-Type', 'application/json').send(systemInfo);
     } else {
+      // 1. 必要なデータをそれぞれ取得する
       const staticData = await si.getStaticData();
       const memData = await si.mem();
       
-      // staticDataとmemDataをマージして新しいオブジェクトを作成する
-      const responseData = { ...staticData, mem: memData };
+      // 2. staticDataからネットワーク情報を取り出し、フィルターをかける
+      const filteredNet = staticData.net.filter(net => 
+          !net.internal && !net.virtual && !net.iface.startsWith('br-')
+      );
       
-      // 物理インターフェースのみをフィルタリング
-      systemInfo.net = systemInfo.net.filter(net => !net.internal && !net.virtual && !net.iface.startsWith('br-'));
+      // 3. フィルター後のネットワーク情報を使って最終的なオブジェクトを作成する
+      const responseData = {
+          ...staticData,   // 元の静的データをすべてコピー
+          mem: memData,    // メモリ情報を追加
+          net: filteredNet // ネットワーク情報をフィルター後のものに上書き
+      };
+      
+      // 4. 最終的なデータを返す
       reply.header('Content-Type', 'application/json').send(responseData);
     }
   } catch (e) {
