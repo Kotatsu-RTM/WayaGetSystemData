@@ -22,7 +22,7 @@
   "homepage": "https://github.com/Kotatsu-RTM/WayaGetSystemData#readme",
   "dependencies": {
     "fastify": "^5.5.0",
-    "systeminformation": "^5.27.1"
+    "systeminformation": "^5.27.8"
   },
   "devDependencies": {
     "@types/node": "^24.1.0",
