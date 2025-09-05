@@ -153,6 +153,8 @@ server.get('/api/systeminfo', async (request, reply) => {
       // 1. 必要なデータをそれぞれ取得する
       const staticData = await si.getStaticData();
       const memData = await si.mem();
+      const timeData = await si.time();     // <-- Uptimeのために追加
+      const fsSizeData = await si.fsSize(); // <-- Disk Usageのために追加
       
       // 2. staticDataからネットワーク情報を取り出し、フィルターをかける
       const filteredNet = staticData.net.filter(net => 
@@ -161,9 +163,11 @@ server.get('/api/systeminfo', async (request, reply) => {
       
       // 3. フィルター後のネットワーク情報を使って最終的なオブジェクトを作成する
       const responseData = {
-          ...staticData,   // 元の静的データをすべてコピー
-          mem: memData,    // メモリ情報を追加
-          net: filteredNet // ネットワーク情報をフィルター後のものに上書き
+          ...staticData,      // 元の静的データをすべてコピー
+          mem: memData,       // メモリ情報を追加
+          time: timeData,     // <-- Uptimeの情報を追加
+          fsSize: fsSizeData, // <-- Disk Usageの情報を追加
+          net: filteredNet    // ネットワーク情報をフィルター後のものに上書き
       };
       
       // 4. 最終的なデータを返す
