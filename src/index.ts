@@ -150,11 +150,15 @@ server.get('/api/systeminfo', async (request, reply) => {
       }
       reply.header('Content-Type', 'application/json').send(systemInfo);
     } else {
-      const systemInfo = await si.getStaticData();
-      systemInfo.mem = await si.mem(); 
+      const staticData = await si.getStaticData();
+      const memData = await si.mem();
+      
+      // staticDataとmemDataをマージして新しいオブジェクトを作成する
+      const responseData = { ...staticData, mem: memData };
+      
       // 物理インターフェースのみをフィルタリング
       systemInfo.net = systemInfo.net.filter(net => !net.internal && !net.virtual && !net.iface.startsWith('br-'));
-      reply.header('Content-Type', 'application/json').send(systemInfo);
+      reply.header('Content-Type', 'application/json').send(responseData);
     }
   } catch (e) {
     server.log.error(e);
