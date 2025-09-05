@@ -1,0 +1,32 @@
+{
+  "name": "wayagetsystemdata",
+  "version": "1.0.0",
+  "description": "A Fastify-based API server that provides system information using fastfetch and systeminformation.",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsc && node dist/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kotatsu-RTM/WayaGetSystemData.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Kotatsu-RTM/WayaGetSystemData/issues"
+  },
+  "homepage": "https://github.com/Kotatsu-RTM/WayaGetSystemData#readme",
+  "dependencies": {
+    "dotenv": "^17.2.2",
+    "fastify": "^5.5.0",
+    "systeminformation": "^5.27.8"
+  },
+  "devDependencies": {
+    "@types/node": "^24.3.1",
+    "typescript": "^5.9.2"
+  }
+}
