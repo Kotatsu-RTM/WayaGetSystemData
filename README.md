@@ -2,6 +2,7 @@
 
 `WayaGetSystemData`は、HTTPリクエストを通じてシステム情報を取得・提供するWebアプリケーションです。  
 APIを通じて、必要な情報を必要な形式（JSON, Plaintext, Markdownなど）で柔軟に取得できます。
+Powered by Gemini 2.5 Pro.
 
 ## サービス要件・仕様
 
